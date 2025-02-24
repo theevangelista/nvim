@@ -11,6 +11,11 @@ for _, server in ipairs(servers) do
 	lspconfig[server].setup({})
 end
 
+-- Dart custom config
+lspconfig.dartls.setup({
+	cmd = { "fvm", "dart", "language-server", "--protocol=lsp" },
+})
+
 local cmp = require("cmp")
 cmp.setup({
 	mapping = cmp.mapping.preset.insert({
@@ -36,6 +41,7 @@ cmp.setup({
 local conform = require("conform")
 conform.setup({
 	formatters_by_ft = {
+        dart = {"fvm dart format"},
 		lua = { "stylua" },
 		python = { "isort", "black" },
 		rust = { "rustfmt", lsp_format = "fallback" },
