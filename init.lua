@@ -17,9 +17,9 @@ require("lazy").setup({
         },
     },
     { "hrsh7th/cmp-buffer" },
-    { "hrsh7th/nvim-cmp", config = true },
-    { "hrsh7th/cmp-nvim-lsp", config = true },
-    { "L3MON4D3/LuaSnip", config = true },
+    { "hrsh7th/nvim-cmp",        config = true },
+    { "hrsh7th/cmp-nvim-lsp",    config = true },
+    { "L3MON4D3/LuaSnip",        config = true },
     { "saadparwaiz1/cmp_luasnip" },
     { "stevearc/conform.nvim" },
     -- Syntax & Treesitter
@@ -36,6 +36,7 @@ require("lazy").setup({
                 "java",
                 "sql",
                 "dart",
+                "powershell",
             },
         },
     },
@@ -44,16 +45,22 @@ require("lazy").setup({
     { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
 
     -- UI & Focus Enhancements
-    { "folke/zen-mode.nvim", lazy = true },
     {
-        "rose-pine/neovim",
-        name = "rose-pine",
+        "Mofiqul/dracula.nvim",
         config = function()
-            vim.cmd("colorscheme rose-pine")
-        end,
+            vim.cmd("colorscheme dracula")
+        end
     },
-    { "folke/noice.nvim", lazy = true, dependencies = { "MunifTanjim/nui.nvim" } },
-    { "nvim-lualine/lualine.nvim", config = true },
+    { "folke/zen-mode.nvim",           lazy = true },
+    { "folke/noice.nvim",              lazy = true,                               dependencies = { "MunifTanjim/nui.nvim" } },
+    {
+        "nvim-lualine/lualine.nvim",
+        opts = {
+            options = {
+                theme = "dracula-nvim"
+            }
+        }
+    },
     {
         "stevearc/oil.nvim",
         opts = {},
@@ -62,7 +69,7 @@ require("lazy").setup({
 
     -- Debugging
     { "mfussenegger/nvim-dap", lazy = true },
-    { "rcarriga/nvim-dap-ui", lazy = true, dependencies = { "mfussenegger/nvim-dap" } },
+    { "rcarriga/nvim-dap-ui",  lazy = true, dependencies = { "mfussenegger/nvim-dap" } },
     {
         "jay-babu/mason-nvim-dap.nvim",
         lazy = true,
@@ -72,10 +79,31 @@ require("lazy").setup({
     -- Surround & Comments
     -- :h nvim-surround.usage
     { "kylechui/nvim-surround", lazy = true, config = true },
-    { "numToStr/Comment.nvim", lazy = true, config = true },
-
+    { "numToStr/Comment.nvim",  lazy = true, config = true },
+    {
+        'windwp/nvim-autopairs',
+        event = "InsertEnter",
+        config = true,
+    },
+    {
+        "smoka7/multicursors.nvim",
+        event = "VeryLazy",
+        dependencies = {
+            'nvimtools/hydra.nvim',
+        },
+        opts = {},
+        cmd = { 'MCstart', 'MCvisual', 'MCclear', 'MCpattern', 'MCvisualPattern', 'MCunderCursor' },
+        keys = {
+            {
+                mode = { 'v', 'n' },
+                '<Leader>m',
+                '<cmd>MCstart<cr>',
+                desc = 'Create a selection for selected text or word under the cursor',
+            },
+        },
+    },
     -- Navigation and Marking
-    { "ThePrimeagen/harpoon", lazy = true },
+    { "ThePrimeagen/harpoon",    lazy = true },
 
     -- Git Integration
     { "lewis6991/gitsigns.nvim", config = true },
@@ -101,8 +129,12 @@ require("lazy").setup({
             })
         end,
     },
+    -- Terminal integration
+    {
+        'willothy/wezterm.nvim',
+        config = true
+    },
 })
-
 require("fn/auto_save")
 require("fn/last_edit_location")
 require("fn/warn_on_last_window")
@@ -114,3 +146,4 @@ require("config/splits")
 require("fn/prevent_exit")
 require("fn/only_first_win")
 require("fn/only_first_win")
+require("fn/set_tab_title")
