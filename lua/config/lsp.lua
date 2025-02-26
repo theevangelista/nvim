@@ -4,6 +4,7 @@ local servers = {
 	"jdtls",
 	"ts_ls",
 	"eslint",
+    "powershell_es"
 }
 
 local lspconfig = require("lspconfig")
