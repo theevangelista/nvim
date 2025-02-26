@@ -1,18 +1,17 @@
-
 local builtin = require("telescope.builtin")
 -- Keymaps (Mnemonic)
 vim.g.mapleader = " "
 
 -- File Management
-vim.api.nvim_set_keymap("n", "<leader>fl", ":Oil<CR>", { noremap = true, silent = true, desc = "Open file manager" })
-
+vim.api.nvim_set_keymap("n", "<M-1>", "<cmd>silent! Neotree toggle<CR>", { noremap = true, silent = true, desc = "Toggle Neotree" })
+vim.api.nvim_set_keymap("n", "<F4>", "<cmd>silent! Neotree reveal_file=%:p<CR>", { noremap = true, silent = true, desc = "Toggle Neotree" })
 -- Buffers
 vim.api.nvim_set_keymap("n", "<leader>bn", ":bnext<CR>", { noremap = true, silent = true, desc = "Next Buffer" })
 vim.api.nvim_set_keymap(
-	"n",
-	"<leader>bp",
-	":bprevious<CR>",
-	{ noremap = true, silent = true, desc = "Previous Buffer" }
+    "n",
+    "<leader>bp",
+    ":bprevious<CR>",
+    { noremap = true, silent = true, desc = "Previous Buffer" }
 )
 vim.api.nvim_set_keymap("n", "<leader>bd", ":bdelete<CR>", { noremap = true, silent = true, desc = "Delete Buffer" })
 
@@ -24,8 +23,8 @@ vim.api.nvim_set_keymap("n", "<leader>wl", "<C-w>l", { noremap = true, silent = 
 vim.api.nvim_set_keymap("n", "<leader>wk", "<C-w>k", { noremap = true, silent = true, desc = "To Window on the top" })
 vim.api.nvim_set_keymap("n", "<leader>wj", "<C-w>j", { noremap = true, silent = true, desc = "To Window on the bottom" })
 vim.api.nvim_set_keymap("n", "<leader>wh", "<C-w>h", { noremap = true, silent = true, desc = "To Window on the right" })
-vim.api.nvim_set_keymap("n", "<leader>w[", "<cmd>res-1",{ noremap = true, silent = true, desc = "Resize - 1" }) 
-vim.api.nvim_set_keymap("n", "<leader>w]", "<cmd>res+1",{ noremap = true, silent = true, desc = "Resize + 1" }) 
+vim.api.nvim_set_keymap("n", "<leader>w[", "<cmd>res-1", { noremap = true, silent = true, desc = "Resize - 1" })
+vim.api.nvim_set_keymap("n", "<leader>w]", "<cmd>res+1", { noremap = true, silent = true, desc = "Resize + 1" })
 -- Terminal
 vim.api.nvim_set_keymap("t", "<ESC>", "<C-\\><C-n>", { noremap = true, silent = true, desc = "To Window on the right" })
 -- Better Movements
@@ -38,22 +37,22 @@ vim.api.nvim_set_keymap("n", "<leader>l", "$", { noremap = true, silent = true }
 local harpoon_ui = require("harpoon.ui")
 local harpoon_mark = require("harpoon.mark")
 vim.keymap.set("n", "<leader>ha", function()
-	harpoon_mark.add_file()
+    harpoon_mark.add_file()
 end, { desc = "Add file to Harpoon" })
 vim.keymap.set("n", "<leader>hm", function()
-	harpoon_ui.toggle_quick_menu()
+    harpoon_ui.toggle_quick_menu()
 end, { desc = "Toggle Harpoon menu" })
 vim.keymap.set("n", "<leader>h1", function()
-	harpoon_ui.nav_file(1)
+    harpoon_ui.nav_file(1)
 end, { desc = "Go to Harpoon file 1" })
 vim.keymap.set("n", "<leader>h2", function()
-	harpoon_ui.nav_file(2)
+    harpoon_ui.nav_file(2)
 end, { desc = "Go to Harpoon file 2" })
 vim.keymap.set("n", "<leader>h3", function()
-	harpoon_ui.nav_file(3)
+    harpoon_ui.nav_file(3)
 end, { desc = "Go to Harpoon file 3" })
 vim.keymap.set("n", "<leader>h4", function()
-	harpoon_ui.nav_file(4)
+    harpoon_ui.nav_file(4)
 end, { desc = "Go to Harpoon file 4" })
 -- LSP
 vim.keymap.set("n", "gd", builtin.lsp_definitions, { desc = "Go to definition" })
@@ -63,7 +62,7 @@ vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Show hover info" })
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename symbol" })
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions" })
 vim.keymap.set("n", "<leader>f", function()
-	vim.lsp.buf.format({ async = true })
+    vim.lsp.buf.format({ async = true })
 end, { desc = "Format buffer" })
 vim.keymap.set("n", "<leader>ds", builtin.lsp_document_symbols, { desc = "Document symbols" })
 vim.keymap.set("n", "<leader>ws", builtin.lsp_workspace_symbols, { desc = "Workspace symbols" })
@@ -73,7 +72,7 @@ vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" }
 -- Misc.
 vim.keymap.set("n", "<leader>li", ":JumpLastI<CR>", { desc = "Jump to last insert position" })
 vim.keymap.set("i", "<C-BS>", function()
-	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-o>dvb", true, true, true), "n", false)
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-o>dvb", true, true, true), "n", false)
 end, { noremap = true, desc = "Delete the last word, preserving punctuation" })
 vim.keymap.set("n", "<leader>jj", ":QuitOthers<CR>", { desc = "Quit all windows but the first opened" })
 vim.keymap.set("n", "<leader>gg", ":LazyGit<CR>", { desc = "Opens lazygit" })

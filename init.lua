@@ -62,9 +62,13 @@ require("lazy").setup({
         }
     },
     {
-        "stevearc/oil.nvim",
-        opts = {},
-        lazy = false,
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons",
+            "MunifTanjim/nui.nvim",
+        },
     },
 
     -- Debugging
@@ -142,6 +146,7 @@ require("config/cmds")
 require("config/opt")
 require("config/lsp")
 require("config/keybinds")
+require("config/neotree")
 require("config/splits")
 require("fn/prevent_exit")
 require("fn/only_first_win")
