@@ -2,6 +2,9 @@ local neotree = require("neo-tree")
 
 neotree.setup({
     default_component_configs = {
+        icon = {
+            enabled = false
+        },
         git_status = {
             symbols = {
             -- Change type
