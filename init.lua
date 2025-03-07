@@ -6,23 +6,30 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-    { "dstein64/vim-startuptime" },
     -- LSP and Autocompletion
-    { "neovim/nvim-lspconfig" },
-    { "williamboman/mason.nvim", config = true },
+    {
+        "nvim-java/nvim-java",
+        lazy = true,
+        config = function()
+            require("java").setup()
+        end
+    },
+
     {
         "williamboman/mason-lspconfig.nvim",
         opts = {
             ensure_installed = { "lua_ls", "elixirls", "jdtls", "ts_ls", "eslint" },
         },
     },
+    { "williamboman/mason.nvim",  config = true },
     { "hrsh7th/cmp-buffer" },
-    { "hrsh7th/nvim-cmp",        config = true },
-    { "hrsh7th/cmp-nvim-lsp",    config = true },
-    { "L3MON4D3/LuaSnip",        config = true },
+    { "hrsh7th/nvim-cmp",         config = true },
+    { "hrsh7th/cmp-nvim-lsp",     config = true },
+    { "L3MON4D3/LuaSnip",         config = true },
     { "saadparwaiz1/cmp_luasnip" },
     { "stevearc/conform.nvim" },
     -- Syntax & Treesitter
+    { "elixir-editors/vim-elixir" },
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
@@ -37,33 +44,89 @@ require("lazy").setup({
                 "sql",
                 "dart",
                 "powershell",
+                "python",
             },
         },
     },
 
     -- Pickers
-    { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
+    { "nvim-telescope/telescope.nvim",          dependencies = { "nvim-lua/plenary.nvim" } },
+    { "nvim-telescope/telescope-ui-select.nvim" },
 
     -- UI & Focus Enhancements
     {
-        "Mofiqul/dracula.nvim",
+        "catppuccin/nvim",
+        name = "catppuccin",
+        priority = 1000,
         config = function()
-            vim.cmd("colorscheme dracula")
-        end
+            require("catppuccin").setup({
+                flavour = "auto",
+                background = {
+                    light = "latte",
+                    dark = "frappe",
+                },
+                transparent_background = true,
+                no_italic = true,
+                integrations = {
+                    cmp = true,
+                    gitsigns = true,
+                    treesitter = true,
+                    notify = true,
+                    mason = true,
+                    neotree = true,
+                    copilot_vim = true,
+                    gitgutter = true,
+
+                }
+            })
+            vim.cmd("colorscheme catppuccin")
+        end,
     },
-    { "folke/zen-mode.nvim",           lazy = true },
-    { "folke/noice.nvim",              lazy = true,                               dependencies = { "MunifTanjim/nui.nvim" } },
+    -- {
+    --     'projekt0n/github-nvim-theme',
+    --     name = 'github-theme',
+    --     lazy = false,    -- make sure we load this during startup if it is your main colorscheme
+    --     priority = 1000, -- make sure to load this before all the other start plugins
+    --     config = function()
+    --         require('github-theme').setup({
+    --             options = {
+    --                 transparent = true,
+    --                 dim_inactive = true,
+    --             }
+    --
+    --         })
+    --
+    --         vim.cmd('colorscheme github_dark_default')
+    --         vim.api.nvim_set_hl(0, "Normal", { guibg = NONE, ctermbg = NONE })
+    --         vim.api.nvim_set_hl(0, "NormalNC", { guibg = NONE, ctermbg = NONE })
+    --
+    --         vim.api.nvim_set_hl(0, "NeoTreeNormal", { guibg = NONE, ctermbg = NONE })
+    --         vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { guibg = NONE, ctermbg = NONE })
+    --         vim.api.nvim_set_hl(0, "NeoTreeTabActive", { guibg = NONE, ctermbg = NONE })
+    --         vim.api.nvim_set_hl(0, "NeoTreeTabInactive", { guibg = NONE, ctermbg = NONE })
+    --         vim.api.nvim_set_hl(0, "NeoTreeTabSeparatorActive", { guibg = NONE, ctermbg = NONE, ctermfg = NONE })
+    --         vim.api.nvim_set_hl(0, "NeoTreeTabSeparatorInactive", { guibg = NONE, ctermbg = NONE, ctermfg = NONE })
+    --         vim.api.nvim_set_hl(0, "NeoTreeVertSplit", { guibg = NONE, ctermbg = NONE, ctermfg = NONE })
+    --         vim.api.nvim_set_hl(0, "NeoTreeWinSeparator", { guibg = NONE, ctermbg = NONE, ctermfg = NONE })
+    --         vim.api.nvim_set_hl(0, "CursorLine", { guibg = underline, ctermbg = NONE, ctermfg = NONE })
+    --     end,
+    -- },
+    { "folke/zen-mode.nvim",   lazy = true },
+    {
+        "folke/noice.nvim",
+        lazy = true,
+        dependencies = { "MunifTanjim/nui.nvim" }
+    },
     {
         "nvim-lualine/lualine.nvim",
         opts = {
-            options = {
-                theme = "dracula-nvim"
-            }
+            theme = "catppuccin"
         }
     },
     {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v3.x",
+        lazy = false,
         dependencies = {
             "nvim-lua/plenary.nvim",
             "nvim-tree/nvim-web-devicons",
@@ -72,18 +135,19 @@ require("lazy").setup({
     },
 
     -- Debugging
-    { "mfussenegger/nvim-dap", lazy = true },
-    { "rcarriga/nvim-dap-ui",  lazy = true, dependencies = { "mfussenegger/nvim-dap" } },
+    { "mfussenegger/nvim-dap", lazy = true, config = true },
+    { "rcarriga/nvim-dap-ui",  lazy = true, config = true, dependencies = { "mfussenegger/nvim-dap" } },
     {
         "jay-babu/mason-nvim-dap.nvim",
         lazy = true,
         dependencies = { "williamboman/mason.nvim", "mfussenegger/nvim-dap" },
     },
+    { "theHamsta/nvim-dap-virtual-text", lazy = true, config = true },
 
     -- Surround & Comments
     -- :h nvim-surround.usage
-    { "kylechui/nvim-surround", lazy = true, config = true },
-    { "numToStr/Comment.nvim",  lazy = true, config = true },
+    { "kylechui/nvim-surround",          lazy = true, config = true },
+    { "numToStr/Comment.nvim",           lazy = true, config = true },
     {
         'windwp/nvim-autopairs',
         event = "InsertEnter",
@@ -106,10 +170,8 @@ require("lazy").setup({
             },
         },
     },
-    -- Navigation and Marking
-    { "ThePrimeagen/harpoon",    lazy = true },
-
     -- Git Integration
+    { "tpope/vim-fugitive" },
     { "lewis6991/gitsigns.nvim", config = true },
     -- Project Management
     {
@@ -123,21 +185,6 @@ require("lazy").setup({
         end,
     },
 
-    -- Persistent Sessions
-    {
-        "rmagatti/auto-session",
-        config = function()
-            require("auto-session").setup({
-                auto_restore_enabled = true,
-                auto_save_enabled = true,
-            })
-        end,
-    },
-    -- Terminal integration
-    {
-        'willothy/wezterm.nvim',
-        config = true
-    },
 })
 require("fn/auto_save")
 require("fn/last_edit_location")
@@ -145,10 +192,11 @@ require("fn/warn_on_last_window")
 require("config/cmds")
 require("config/opt")
 require("config/lsp")
-require("config/keybinds")
+require("config/telescope")
+require("config/keymaps")
 require("config/neotree")
 require("config/splits")
 require("fn/prevent_exit")
 require("fn/only_first_win")
-require("fn/only_first_win")
-require("fn/set_tab_title")
+require("fn/swap_lines")
+require("fn/toggle_case")

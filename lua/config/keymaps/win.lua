@@ -1,0 +1,10 @@
+vim.api.nvim_set_keymap("n", "<leader>ws", ":split<CR>", { noremap = true, silent = true, desc = "Split horizontally" })
+vim.api.nvim_set_keymap("n", "<leader>wv", ":vsplit<CR>", { noremap = true, silent = true, desc = "Split vertically" })
+vim.api.nvim_set_keymap("n", "<leader>wq", ":q<CR>", { noremap = true, silent = true, desc = "Close Window" })
+vim.api.nvim_set_keymap("n", "<leader>wl", "<C-w>l", { noremap = true, silent = true, desc = "To Window on the left" })
+vim.api.nvim_set_keymap("n", "<leader>wk", "<C-w>k", { noremap = true, silent = true, desc = "To Window on the top" })
+vim.api.nvim_set_keymap("n", "<leader>wj", "<C-w>j", { noremap = true, silent = true, desc = "To Window on the bottom" })
+vim.api.nvim_set_keymap("n", "<leader>wh", "<C-w>h", { noremap = true, silent = true, desc = "To Window on the right" })
+vim.api.nvim_set_keymap("n", "<leader>w[", "<cmd>res-1", { noremap = true, silent = true, desc = "Resize - 1" })
+vim.api.nvim_set_keymap("n", "<leader>w]", "<cmd>res+1", { noremap = true, silent = true, desc = "Resize + 1" })
+

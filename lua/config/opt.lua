@@ -1,3 +1,4 @@
+local utils = require("utils")
 vim.opt.number = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -18,4 +19,4 @@ vim.opt.smartcase = true
 vim.opt.cursorline = true
 vim.opt.list = false
 vim.o.exrc = true
-vim.o.shell = "pwsh.exe"
+vim.o.shell = utils.isWindows() and "pwsh.exe" or "/bin/zsh"
